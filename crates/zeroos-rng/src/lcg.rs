@@ -1,0 +1,62 @@
+use spin::Mutex;
+
+#[repr(C)]
+pub struct LcgState {
+    state: u64,
+}
+
+impl LcgState {
+    #[inline]
+    pub const fn new() -> Self {
+        Self {
+            state: 0xDEADBEEF_CAFEBABE,
+        }
+    }
+
+    #[inline]
+    pub const fn with_seed(seed: u64) -> Self {
+        Self { state: seed }
+    }
+
+    #[inline]
+    pub fn next_u64(&mut self) -> u64 {
+        self.state = self
+            .state
+            .wrapping_mul(6364136223846793005)
+            .wrapping_add(1442695040888963407);
+        self.state
+    }
+
+    pub fn fill_bytes(&mut self, buf: &mut [u8]) {
+        let mut offset = 0;
+        while offset < buf.len() {
+            let rand = self.next_u64();
+            let bytes = rand.to_le_bytes();
+            let remaining = buf.len() - offset;
+            let to_copy = remaining.min(8);
+            buf[offset..offset + to_copy].copy_from_slice(&bytes[..to_copy]);
+            offset += to_copy;
+        }
+    }
+}
+
+static GLOBAL_RNG: Mutex<LcgState> = Mutex::new(LcgState::new());
+
+pub fn fill_bytes(buf: *mut u8, len: usize) -> isize {
+    if buf.is_null() {
+        return -9; // EBADF
+    }
+
+    let mut rng = GLOBAL_RNG.lock();
+    unsafe {
+        let slice = core::slice::from_raw_parts_mut(buf, len);
+        rng.fill_bytes(slice);
+    }
+
+    len as isize
+}
+
+pub fn init_seed(seed: u64) {
+    let mut rng = GLOBAL_RNG.lock();
+    *rng = LcgState::with_seed(seed);
+}

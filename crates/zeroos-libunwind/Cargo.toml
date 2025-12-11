@@ -1,0 +1,9 @@
+[package]
+name = "zeroos-libunwind"
+version = "0.1.0"
+edition = "2021"
+description = "Minimal unwind stubs for panic=abort environments"
+
+[lib]
+name = "zeroos_libunwind"
+path = "src/lib.rs"

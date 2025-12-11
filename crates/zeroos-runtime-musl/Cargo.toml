@@ -1,0 +1,19 @@
+[package]
+name = "zeroos-runtime-musl"
+version = "0.1.0"
+edition = "2021"
+description = "Musl libc compatibility layer for ZeroOS"
+
+[lib]
+name = "zeroos_runtime_musl"
+path = "src/lib.rs"
+crate-type = ["rlib"]
+
+[dependencies]
+debug.workspace = true
+foundation.workspace = true
+
+[features]
+default = []
+debug = ["debug/debug"]
+bounds-checks = []      # Enable runtime stack overflow detection

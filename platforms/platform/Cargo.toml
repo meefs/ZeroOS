@@ -1,0 +1,30 @@
+[package]
+name = "platform"
+version = "0.1.0"
+edition = "2024"
+description = "Platform abstraction facade for ZeroOS - selects and re-exports platform-specific implementations"
+
+[lib]
+crate-type = ["rlib"]
+
+[dependencies]
+zeroos-macros = { workspace = true }
+spike-platform = { workspace = true, optional = true }
+
+[features]
+default = []
+
+with-spike = ["spike-platform"]
+
+debug = ["spike-platform?/debug"]
+bounds-checks = ["spike-platform?/bounds-checks"]
+
+std = ["spike-platform?/std"]
+os-linux = ["spike-platform?/os-linux"]
+runtime-musl = ["spike-platform?/runtime-musl"]
+libunwind = ["spike-platform?/libunwind"]
+
+vfs = ["spike-platform?/vfs"]
+vfs-device-console = ["spike-platform?/vfs-device-console"]
+memory = ["spike-platform?/memory"]
+thread = ["spike-platform?/thread"]

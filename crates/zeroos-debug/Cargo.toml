@@ -1,0 +1,16 @@
+[package]
+name = "zeroos-debug"
+version = "0.1.0"
+edition = "2021"
+description = "Debug tracing infrastructure for ZeroOS"
+
+[lib]
+name = "zeroos_debug"
+path = "src/lib.rs"
+
+[dependencies]
+cfg-if.workspace = true
+
+[features]
+default = []
+debug = []

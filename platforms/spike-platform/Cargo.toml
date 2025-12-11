@@ -1,0 +1,47 @@
+[package]
+name = "spike-platform"
+version = "0.2.0"
+edition = "2021"
+description = "Spike simulator platform for ZeroOS"
+
+[lib]
+crate-type = ["rlib"]
+
+[dependencies]
+cfg-if.workspace = true
+libc = { workspace = true, optional = true }
+htif.workspace = true
+debug = { workspace = true }
+foundation = { workspace = true }
+zeroos = { workspace = true }
+
+[features]
+default = ["arch-riscv"]
+
+std = [
+  "libc",
+
+  "arch-riscv",
+  "os-linux",
+  "runtime-musl",
+  "libunwind",
+
+  "vfs-device-console",
+  "memory",
+  "thread",
+  "random",
+]
+
+debug = ["zeroos/debug"]
+bounds-checks = ["zeroos/bounds-checks"]
+
+arch-riscv = ["zeroos/arch-riscv"]
+os-linux = ["zeroos/os-linux", "zeroos/trap"]
+runtime-musl = ["zeroos/runtime-musl"]
+libunwind = ["zeroos/libunwind"]
+
+memory = ["zeroos/alloc-linked-list"]
+vfs = ["zeroos/vfs"]
+vfs-device-console = ["vfs", "zeroos/vfs-device-console"]
+thread = []
+random = ["zeroos/rng-lcg"]

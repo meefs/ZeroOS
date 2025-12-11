@@ -1,0 +1,15 @@
+[package]
+name = "zeroos-runtime-nostd"
+version = "0.1.0"
+edition = "2021"
+description = "No-std runtime bootstrap for ZeroOS"
+
+[lib]
+crate-type = ["rlib"]
+
+[features]
+default = []
+memory = ["foundation/memory"]
+
+[dependencies]
+foundation = { workspace = true }

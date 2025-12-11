@@ -1,0 +1,26 @@
+[package]
+name = "fibonacci"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+platform.workspace = true
+debug.workspace = true
+cfg-if.workspace = true
+
+[features]
+default = ["with-spike"]
+
+debug = ["platform/debug"]
+
+std = [
+  "platform/std",
+  "platform/vfs-device-console",
+  "platform/memory",
+  "platform/bounds-checks",
+]
+
+with-spike = ["platform/with-spike"]
+
+[target.'cfg(target_os = "none")'.dependencies]
+platform = { workspace = true, features = ["memory"] }

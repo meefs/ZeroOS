@@ -1,0 +1,27 @@
+[package]
+name = "zeroos-rng"
+version = "0.1.0"
+edition = "2021"
+description = "Random number generators for ZeroOS"
+
+[lib]
+name = "zeroos_rng"
+path = "src/lib.rs"
+
+[dependencies]
+foundation = { workspace = true, default-features = false, features = [
+  "random",
+] }
+spin = { workspace = true, default-features = false, features = [
+  "mutex",
+  "spin_mutex",
+] }
+
+[dev-dependencies]
+# Only for testing against reference implementation
+rand_chacha = { version = "0.3", default-features = false }
+
+[features]
+default = ["lcg"]
+lcg = []
+chacha = []

@@ -1,0 +1,19 @@
+[package]
+name = "spike-build"
+version = "0.2.0"
+edition = "2021"
+description = "Build tool for Spike simulator - independent of spike-platform"
+
+[[bin]]
+name = "cargo-spike"
+path = "src/main.rs"
+
+[dependencies]
+# Build infrastructure
+build.workspace = true
+
+# CLI and utilities
+clap.workspace = true
+anyhow.workspace = true
+log.workspace = true
+env_logger.workspace = true

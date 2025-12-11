@@ -1,0 +1,13 @@
+[package]
+name = "zeroos-allocator-bump"
+version = "0.1.0"
+edition = "2021"
+description = "Fast bump/arena allocator for ZeroOS - perfect for zkVM environments"
+
+[lib]
+name = "zeroos_allocator_bump"
+path = "src/lib.rs"
+crate-type = ["rlib"]
+
+[dependencies]
+foundation = { workspace = true, features = ["memory"] }

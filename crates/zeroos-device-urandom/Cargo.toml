@@ -1,0 +1,15 @@
+[package]
+name = "zeroos-device-urandom"
+version = "0.1.0"
+edition = "2021"
+description = "Deterministic /dev/urandom device for zkVM"
+
+[lib]
+name = "zeroos_device_urandom"
+path = "src/lib.rs"
+
+[dependencies]
+foundation = { workspace = true, default-features = false, features = [
+  "random",
+] }
+vfs = { workspace = true }

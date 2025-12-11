@@ -235,7 +235,7 @@ setup_submodules() {
 
 setup_git_hooks() {
 	log "Configuring Git hooks..."
-	git config --local core.hooksPath ".ghk"
+	# git config --local core.hooksPath ".ghk"
 }
 
 setup_cursor() {
@@ -332,7 +332,7 @@ setup_spike() {
 
 	case "$TARGET_OS" in
 	linux)
-		if ! gh release download --clobber --repo LayerZero-Research/ZeroKernel spike-1.1.1 --pattern "spike-1.1.1-$(uname -s)-$(uname -m).tar.gz" -O "$spike_archive"; then
+		if ! gh release download --clobber --repo LayerZero-Labs/ZeroOS spike-1.1.1 --pattern "spike-1.1.1-$(uname -s)-$(uname -m).tar.gz" -O "$spike_archive"; then
 			err "Failed to download Spike release. Check if the release exists and you have network access."
 			return 1
 		fi

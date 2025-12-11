@@ -1,0 +1,32 @@
+[package]
+name = "zeroos-foundation"
+version = "0.3.0"
+edition = "2021"
+description = "ZeroOS foundation layer - the bedrock runtime, registry, and coordination that everything builds upon"
+
+[lib]
+name = "foundation"
+path = "src/lib.rs"
+crate-type = ["rlib"]
+
+[dependencies]
+cfg-if.workspace = true
+libc.workspace = true
+debug.workspace = true
+
+[features]
+default = []
+
+debug = ["debug/debug"]
+
+# Subsystem features
+memory = []
+scheduler = []
+syscall = []
+vfs = []
+trap = []
+random = []
+
+# Boot mode selection
+std = []
+libc-main = []

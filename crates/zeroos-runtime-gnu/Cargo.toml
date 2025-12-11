@@ -1,0 +1,13 @@
+[package]
+name = "zeroos-runtime-gnu"
+version = "0.1.0"
+edition = "2021"
+description = "GNU libc (glibc) compatibility layer for ZeroOS"
+
+[lib]
+name = "zeroos_runtime_gnu"
+path = "src/lib.rs"
+crate-type = ["rlib"]
+
+[dependencies]
+# No dependencies - this is a thin compatibility layer

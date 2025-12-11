@@ -1,4 +1,91 @@
-/target
-/bin
-/pre-built
+# Rust build artifacts
+/target/
+**/target/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Rust specific
+**/*.rs.bk
+*.pdb
+
+# Cargo
+.cargo/
+
+# Build outputs
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Debug files
+*.debug
+*.dSYM/
+
+# Platform specific build directories
+platforms/*/target/
+platforms/*/build/
+
+# Log files
+*.log
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 .envrc
+
+# Temporary files
+tmp/
+temp/
+
+# Coverage reports
+tarpaulin-report.html
+coverage/
+
+# Benchmark results
+criterion/
+
+# Documentation build
+book/
+
+# RISC-V and kernel development specific
+*.bin
+*.img
+*.iso
+*.elf
+*.map
+spike.log
+*.dump
+
+# Third-party builds
+third-party/*/build/
+third-party/*/target/
+
+# Cache directories
+.cache/
+
+# Node modules (if using any JS tooling)
+node_modules/
+
+# Python cache (if using any Python tooling)
+__pycache__/
+*.py[cod]
+*$py.class

@@ -1,0 +1,14 @@
+[package]
+name = "zeroos-allocator-linked-list"
+version = "0.1.0"
+edition = "2021"
+description = "General-purpose linked list allocator for ZeroOS"
+
+[lib]
+name = "zeroos_allocator_linked_list"
+path = "src/lib.rs"
+crate-type = ["rlib"]
+
+[dependencies]
+foundation = { workspace = true, features = ["memory"] }
+linked_list_allocator.workspace = true

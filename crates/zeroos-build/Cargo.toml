@@ -1,0 +1,24 @@
+[package]
+name = "zeroos-build"
+version = "0.1.0"
+edition = "2021"
+description = "Build tooling and CLI for ZeroOS"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "cargo-bolt"
+path = "src/main.rs"
+
+[dependencies]
+dirs.workspace = true
+clap.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+log.workspace = true
+tempfile.workspace = true
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+parse-size.workspace = true

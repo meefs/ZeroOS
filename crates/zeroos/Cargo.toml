@@ -1,0 +1,108 @@
+[package]
+name = "zeroos"
+version = "0.1.0"
+edition = "2021"
+description = "ZeroOS - Kernel framework facade with auto-wiring"
+
+[lib]
+name = "zeroos"
+path = "src/lib.rs"
+
+[features]
+default = []
+
+debug = [
+  "debug/debug",
+  "arch-riscv?/debug",
+  "runtime-musl?/debug",
+  "foundation/debug",
+]
+bounds-checks = ["runtime-musl?/bounds-checks"]
+
+# Architecture support
+arch-riscv = ["dep:arch-riscv"]
+
+# Trap handling
+trap = ["foundation/trap"]
+
+# OS layers
+os-linux = ["dep:os-linux"]
+
+# Memory allocators
+alloc-linked-list = [
+  "dep:allocator-linked-list",
+  "foundation/memory",
+  "runtime-nostd?/memory",
+  "os-linux?/memory",
+]
+alloc-buddy = [
+  "dep:allocator-buddy",
+  "foundation/memory",
+  "runtime-nostd?/memory",
+  "os-linux?/memory",
+]
+alloc-bump = [
+  "dep:allocator-bump",
+  "foundation/memory",
+  "runtime-nostd?/memory",
+  "os-linux?/memory",
+]
+
+# Runtimes
+runtime-musl = ["dep:runtime-musl"]
+runtime-gnu = ["dep:runtime-gnu"]
+runtime-nostd = ["dep:runtime-nostd"]
+
+# VFS core
+vfs = ["dep:vfs", "foundation/memory", "foundation/vfs", "os-linux?/vfs"]
+
+# VFS devices
+vfs-device-console = ["vfs", "dep:device-console"]
+vfs-device-null = ["vfs", "dep:device-null"]
+vfs-device-zero = ["vfs", "dep:device-zero"]
+vfs-device-urandom = ["vfs", "random", "dep:device-urandom"]
+
+# Random subsystem
+random = ["foundation/random", "os-linux?/random"]
+
+# RNG implementations
+rng-lcg = ["random", "dep:rng", "rng/lcg"]
+rng-chacha = ["random", "dep:rng", "rng/chacha"]
+
+# Unwind support
+libunwind = ["dep:libunwind"]
+
+[dependencies]
+foundation = { workspace = true, default-features = false }
+debug = { workspace = true }
+zeroos-macros.workspace = true
+arch-riscv = { workspace = true, optional = true }
+
+# OS layers (optional)
+os-linux = { workspace = true, optional = true }
+
+# Unwind support (optional)
+libunwind = { workspace = true, optional = true }
+
+# Allocators (optional)
+allocator-linked-list = { workspace = true, optional = true }
+allocator-buddy = { workspace = true, optional = true }
+allocator-bump = { workspace = true, optional = true }
+
+# Runtimes (optional)
+runtime-musl = { workspace = true, optional = true }
+runtime-gnu = { workspace = true, optional = true }
+runtime-nostd = { workspace = true, optional = true }
+
+# VFS and devices (optional)
+vfs = { workspace = true, optional = true }
+device-console = { workspace = true, optional = true }
+device-null = { workspace = true, optional = true }
+device-zero = { workspace = true, optional = true }
+device-urandom = { workspace = true, optional = true }
+
+# Random subsystem (optional)
+rng = { workspace = true, optional = true }
+
+[target.'cfg(target_os = "none")'.dependencies]
+runtime-nostd = { workspace = true }
