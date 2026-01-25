@@ -1,4 +1,6 @@
 //! Platforms must provide `trap_handler(regs: *mut TrapFrame)`; this crate provides the entry/exit wrapper.
+#[cfg(not(target_os = "none"))]
+use core::arch::global_asm;
 
 use cfg_if::cfg_if;
 
@@ -153,8 +155,6 @@ cfg_if! {
     }
 }
 
-use core::arch::global_asm;
-
 mod imp {
     use super::*;
 
@@ -305,6 +305,7 @@ mod imp {
 
 pub use imp::_default_trap_handler;
 
+#[cfg(not(target_os = "none"))]
 global_asm!(
     ".align 2",
     ".weak _trap_handler",

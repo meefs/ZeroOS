@@ -53,6 +53,9 @@ pub unsafe extern "C" fn trap_handler(regs: *mut u8) {
             let pc = (*regs).mepc;
             (*regs).mepc = pc + 4;
 
+            #[cfg(feature = "debug")]
+            debug::writeln!("[syscall] {}", zeroos::os::linux::syscall_name((*regs).a7));
+
             let ret = foundation::kfn::trap::ksyscall(
                 (*regs).a0,
                 (*regs).a1,
@@ -68,7 +71,7 @@ pub unsafe extern "C" fn trap_handler(regs: *mut u8) {
             advance_mepc_for_breakpoint(regs);
         }
         code => {
-            htif::exit(code as u32);
+            foundation::kfn::kexit(code as i32);
         }
     }
 }
